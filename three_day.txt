@@ -1,0 +1,121 @@
+import android.content.ContentValues
+import android.content.Context
+import android.database.sqlite.SQLiteDatabase
+import android.database.sqlite.SQLiteOpenHelper
+
+class Database (context:Context):SQLiteOpenHelper(context,DATABASE_NAME,null,VERSION){
+
+    override fun onCreate(db: SQLiteDatabase?) {
+        db!!.execSQL("CREATE TABLE $DATABASETABLE_NAME($KEY_ID INTEGER PRIMARY KEY AUTOINCREMENT " +
+                ", $NAME TEXT , $CAPITAL TEXT , $DATE TEXt , $AREA TEXT )")
+    }
+
+    override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+        db!!.execSQL("DROP TABLE IF EXISTS $DATABASETABLE_NAME")
+    }
+
+        var db : SQLiteDatabase = this.writableDatabase
+
+
+    fun insert_data(my_name:String,my_capital:String,my_date:String,my_area:String):Boolean{
+
+        val value = ContentValues()
+        value.put(NAME,my_name)
+        value.put(CAPITAL,my_capital)
+        value.put(DATE,my_date)
+        value.put(AREA,my_area)
+
+        return db.insert(DATABASETABLE_NAME,null,value)>0
+    }
+
+        data class world_model(var id :Int,var name:String,var capital:String,var date:String,var area:String)
+
+    fun show_data():ArrayList<world_model>{
+
+    val data = ArrayList<world_model>()
+    val cursor = db.rawQuery("SELECT * FROM $DATABASETABLE_NAME",null)
+        cursor.moveToFirst()
+        while (!cursor.isAfterLast){
+
+            data.add(world_model(cursor.getInt(0) , cursor.getString(1)
+                , cursor.getString(2)
+                , cursor.getString(3)
+                , cursor.getString(4)))
+            cursor.moveToNext() }
+        cursor.close()
+        return data }
+
+
+    fun delete_data(id: Int):Boolean{
+        db.delete(DATABASETABLE_NAME,"$KEY_ID=?", arrayOf(id.toString())).toLong()
+        return true
+    }
+
+    companion object{
+        val DATABASE_NAME = "world.db"
+        val DATABASETABLE_NAME = "world"
+        val VERSION = 1
+        val KEY_ID = "id"
+
+        val NAME = "name"
+        val CAPITAL ="capital"
+        val DATE = "date"
+        val AREA ="area"
+    }
+}
+**********************************************************************************************************
+***activity show***
+class activity_show : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_show)
+
+        //this.list.adapter=CustomAdapter(thi)
+    }
+}
+class CustomAdapter(context: Context,private val name:Array<Database.world_model>
+,val cap :Array<Database.world_model>
+    ): ArrayAdapter<Database.world_model>(context,R.layout.item,name){
+
+
+    override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
+        val inflater = LayoutInflater.from(context).inflate(R.layout.item,parent,false)
+
+        inflater.textdola.text=name[position].name
+        inflater.textasma.text=cap[position].capital
+
+        return inflater
+    }
+}
+*************************************************************************************************
+***activity add***
+
+class activity_add : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_add)
+
+            btn_add.setOnClickListener {
+
+                val my_data = Database (this)
+
+                my_data.insert_data(et_name.text.toString()
+                    ,et_cap.text.toString(),et_num.text.toString(),et_area.text.toString())
+
+                et_name.text.clear()
+                et_cap.text.clear()
+                et_num.text.clear()
+                et_area.text.clear() }
+
+        btn_add.setOnClickListener {
+            val intent = Intent(this,MainActivity::class.java)
+                startActivity(intent)
+        }
+    }
+}
+*****************************
+**inent koding**
+ butn_sh.setOnClickListener {
+            val intent = Intent(this,activity_show::class.java)
+            startActivity(intent)
+        }

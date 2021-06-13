@@ -1,0 +1,10 @@
+class CustomAdapter(context: Context , var Name:Array<String>, var Image: Array<Int>):ArrayAdapter<String>(context,R.layout.forma,Name) {
+    @SuppressLint("ViewHolder")
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+        var inflate=LayoutInflater.from(context)
+        var view=inflate.inflate(R.layout.forma,parent,false)
+        view.imageView_list.setImageResource(Image[position])
+        view.textView_list.setText(Name[position])
+        return view
+    }
+}

@@ -1,0 +1,55 @@
+***fragment***
+ button.setOnClickListener { supportFragmentManager.beginTransaction().replace(R.id.frameLayout,fragment_about()).commit() }
+        button2.setOnClickListener { supportFragmentManager.beginTransaction().replace(R.id.frameLayout,fragment_sum()).commit() }
+**//*/*/*///**//*/*/*/*/*/*//*/*/*/*
+class fragment_sum : Fragment() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState) }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        var view = inflater.inflate(R.layout.fragment_sum, container, false)
+        val view2 = LayoutInflater.from(context).inflate(R.layout.dailog, null)
+        var builder = android.app.AlertDialog.Builder(context)
+        builder.setView(view2)
+        var dialog = builder.create()
+        view.frgg.setOnClickListener { _ ->
+
+            dialog.show()
+
+        }
+        view2.sums.setOnClickListener {
+            var value = view2.editText1.text.toString().toInt()
+            var value2 = view2.editText2.text.toString().toInt()
+
+            var progress = value * value2
+            view2.result.text = progress.toString()
+            view2.editText1.text.clear()
+            view2.editText2.text.clear()
+
+        }
+        view2.cancel.setOnClickListener {
+            dialog.dismiss()
+            view2.result.text = "0"
+        }
+        return view
+
+    }
+}
+*/*/*/*/*/*/
+class fragment_about : Fragment() {
+
+    private var param1: String? = null
+    private var param2: String? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState) }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_about, container, false)
+    }
+
+}
+***************************************

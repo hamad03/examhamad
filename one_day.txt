@@ -1,0 +1,132 @@
+***list normal***
+ val name = arrayOf("hamad","hamad","hamad")
+        val a:ArrayAdapter<String> = ArrayAdapter(this,android.R.layout.simple_list_item_1,name)
+        list_normal.adapter=a
+        list_normal.setOnItemClickListener { adapterView, view, i, L ->
+            val n = adapterView.getItemIdAtPosition(i).toString()
+            Toast.makeText(this,n,Toast.LENGTH_LONG).show()
+************************************************************************************************************************
+***custom list***
+class customAdapter(context: Context.var Name:Array<String>.var image:Array<Int>):ArrayAdapter<String>(context.R.Layout.forma.Name){
+    @SuppressLint("ViewHolder")
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+        return super.getView(position, convertView, parent)
+        var inflat=LayoutInflater.from(context)
+        var View=inflat.inflate(R.layout.forma.parent.false)
+        View.image_list.setimageResource(image[position])
+        View.textview_list.settext(Name[position])
+        return View
+    }
+
+***************************************************************************************************************************
+***grid view***
+val name = arrayOf("مسجد الشيخ مكي","مسجد درغث","مسجد الديسي","مسجد المثبت","مسجد عثمان بن عفان","مسجد البراق")
+        val image = arrayOf(R.drawable.mosque,R.drawable.mosque,R.drawable.mosque,R.drawable.mosque,R.drawable.mosque,R.drawable.mosque)
+         grid_view.adapter =  CUSTOMADAPTER(this,image,name )
+
+****************************************************************************************************************************
+***web view***
+ webView.settings.javaScriptEnabled
+
+        var URL = ""
+
+        webView.webViewClient = object : WebViewClient(){
+
+            override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?):Boolean {
+                URL = request.toString()
+
+                return false
+            }
+        }
+        webView.loadUrl("http://www.alazhar.edu.ps/arabic/index.asp")
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        return if (keyCode == KeyEvent.KEYCODE_BACK && webView.canGoBack()) {
+            webView.goBack()
+            true
+        }else{
+            super.onKeyDown(keyCode, event)
+        }
+*/*/*/*/////////*****
+        webview.settings.javaScriptEnabled = true
+        webview.loadUrl("https://www.wafa.ps/")
+        webview.webViewClient = object : WebViewClient() {
+            override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
+                return super.shouldOverrideUrlLoading(view, request)
+                URL = request.toString()
+
+                return false } } }
+
+
+
+
+
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        return if (keyCode == KeyEvent.KEYCODE_BACK && webview.canGoBack()){
+            true
+        }else{super .onKeyDown(keyCode, event)}
+    }
+
+**********************************************************************************************************************
+***video view***
+videoView.setVideoURI(Uri.parse(""))
+        val mediaController = MediaController(this)
+        videoView.setMediaController(mediaController)
+        videoView.start()
+        */*/*/*
+        <uses-permission android:name="android.permission.INTERNET"/>
+*/*/*/*/*
+  videoView.setVideoURI(Uri.parse("android.resource://" + packageName + "/" + R.raw.video))
+        val mediaController = MediaController(this)
+        videoView.setMediaController(mediaController)
+        videoView.start()
+
+
+********************************************************************************************************************
+***media player***
+var mediaPlayer = MediaPlayer()
+        val name= arrayOf("    سورة المؤمنون","     سورة الرحمان","     سورة يس","     سورة الملك","     سورة الكهف","     سورة مريم")
+        val image= arrayOf(R.drawable.quran,R.drawable.quran,R.drawable.quran,R.drawable.quran,R.drawable.quran,R.drawable.quran)
+        val quran= arrayOf(R.raw.quran12,R.raw.quran13,R.raw.quran14,R.raw.quran15,R.raw.quran16,R.raw.quran17)
+        val myAdapter=CustomAdapter(this,name,image)
+        list.adapter=myAdapter
+        list.setOnItemClickListener { _, _, position, _ ->
+            mediaPlayer.stop()
+            mediaPlayer = MediaPlayer.create(this, quran[position])
+            if (mediaPlayer.isPlaying){
+                mediaPlayer.stop()
+
+            }
+            else{
+                mediaPlayer.start()
+*/*/*/*/*/*/*/*/*/*
+ class CustomAdapter(context: Context, private val objects: Array<out String>, private val image:Array<out Int>?):
+            ArrayAdapter<String>(context,R.layout.design, objects) {
+        override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+            val l: LayoutInflater = LayoutInflater.from(context)
+            val customView=l.inflate(R.layout.design,parent,false)
+            customView.textView.text=objects!![position]
+            customView.imageView.setImageResource(image!![position])
+            return customView
+
+*******************************************************************************************************************
+***scroll view***
+linearlayout
+
+*******************************************************************************************************************
+***costom adapter***
+class CUSTOMADAPTER(context: Context, var image: Array<Int>, var name:Array<String>) :
+    ArrayAdapter<String>(context, R.layout.item,name) {
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+
+    var l = LayoutInflater.from(context)
+    val view: View = l.inflate(R.layout.item,parent,false)
+
+    view.text_item.text = name[position]
+    view.image_item.setImageResource(image[position])
+    return view
+
+    } }
+***********************************************

@@ -1,0 +1,123 @@
+***custom_dialog
+override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view =inflater.inflate(R.layout.fragment_convert, container, false)
+        val view2=LayoutInflater.from(context).inflate(R.layout.custom__dialog,null)
+        val builder= android.app.AlertDialog.Builder(context)
+        builder.setView(view2)
+        val dialog=builder.create()
+        view.btn_convert.setOnClickListener { _ ->
+
+            dialog.show()
+        }
+        view2.btn_sum.setOnClickListener {
+            val value= view2.edtx.text.toString().toInt()
+            val progress=value*(9/5)+32
+            view2.text_result.text=progress.toString()
+            view2.edtx.text.clear()
+        }
+//////////////////*********************///////////////////////////
+val arrayList = ArrayList<String>()
+        button2.setOnClickListener { _ ->
+            val inflater = LayoutInflater.from(this)
+            val view = inflater.inflate(R.layout.dialog_my, null)
+            val builder = AlertDialog.Builder(this)
+            builder.setView(view)
+            val dialog = builder.create()
+            dialog.show()
+            view.btn_add.setOnClickListener { 
+                val textdata = view.edt.text.toString()
+                arrayList.add(textdata)
+                val myadapter = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, arrayList)
+                view.btn_cancel.setOnClickListener { dialog.cancel() }
+            }
+        }
+***************************************************************************
+***Main activity fragment
+button.setOnClickListener { supportFragmentManager.beginTransaction().replace(R.id.frameLayout,fragment_about()).commit() }
+*************************************************************
+***Notification اعلى من اوريو
+
+val CHANEL_ID="CHANEL_01"
+    val Id=123456
+
+
+val importance=NotificationManager.IMPORTANCE_HIGH
+        val mChanel=NotificationChannel(CHANEL_ID,"dd",importance)
+        val notification=Notification.Builder(this,CHANEL_ID)
+            .setSmallIcon(R.drawable.ic_launcher_background)
+            .setContentTitle("تنبيه")
+            .setContentText("جسم الرسالة")
+            .build()
+
+        val mNotificationManger=getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        mNotificationManger.createNotificationChannel(mChanel)
+        mNotificationManger.notify(1,notification)
+
+        val intent=Intent(this,MainActivity::class.java)
+        val pendingIntent=PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_UPDATE_CURRENT)
+        notification.contentIntent=pendingIntent
+********************************************************
+***dialog
+button2.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("تنبيه")
+            builder.setMessage("هل تريد اغلاق التطبيق")
+           builder.setPositiveButton("موافق"){_:DialogInterface, _: Int -> finish()}
+            builder.setNeutralButton("الغاء"){ _: DialogInterface, _: Int ->}
+            val dialog = builder.create()
+            dialog.show()
+
+        }
+****************************************************************************
+**الاشعارات في الفراجمنت و الفراجمنت
+        val view = inflater.inflate(R.layout.fragment_calculate_, container, false)
+        view.button_dialog.setOnClickListener {
+            val inflater = LayoutInflater.from(context).inflate(R.layout.dialog_forma, null)
+            val dialog = AlertDialog.Builder(context)
+            dialog.setView(inflater)
+            val builder = dialog.show()
+            builder.show()
+            inflater.button_calc.setOnClickListener {
+                val value = inflater.edittext_value.text.toString().toInt()
+                val value2 = inflater.edittext_value2.text.toString().toInt()
+                val opertion = value * value2
+                val CHANEL_ID = "CHANEL_01"
+                val Id = 123456
+               if (opertion.toString().toInt() == value.toString().toInt()) {
+                    val importance = NotificationManager.IMPORTANCE_HIGH
+                    val mChanel = NotificationChannel(CHANEL_ID, "dd", importance)
+                    val notification = Notification.Builder(context, CHANEL_ID)
+                        .setSmallIcon(R.drawable.ic_launcher_foreground)
+                        .setContentTitle("تنبيه")
+                        .setContentText("قيمة المقاومة التي أدخلتها تساوي 1")
+                        .build()
+
+                    val mNotificationManger =
+                        requireActivity().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                    mNotificationManger.createNotificationChannel(mChanel)
+                    mNotificationManger.notify(Id, notification)
+
+                    val intent = Intent(context, MainActivity::class.java)
+                    val pendingIntent = PendingIntent.getActivity(
+                        context,
+                        0,
+                        intent,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                    )
+                    notification.contentIntent = pendingIntent
+
+                } else {
+                    inflater.text_result.text = opertion.toString()
+                }
+
+            }
+            inflater.button_cancle.setOnClickListener {
+                builder.dismiss()
+            }
+
+
+        }
+        return view

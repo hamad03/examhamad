@@ -16,4 +16,9 @@ class customAdapter(context: Context,private val name: Array<out String>,private
         val act = arrayOf("92%","62% - 90%","95%","95%","90%","72%","79%")
         val com_num = arrayOf("X2","X2","X2","X2","X2","X1","X2")
         val com_price = arrayOf("10 دولارات","4 دولارات","33 دولار","20 دولار","16 دولار","10 دولارات","30 – 75 دولار")
+        
+         btn_list.setOnClickListener {
+            val intent = Intent(this, listActivity::class.java)
+            startActivity(intent)
+        }
 

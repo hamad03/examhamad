@@ -21,4 +21,10 @@ class customAdapter(context: Context,private val name: Array<out String>,private
             val intent = Intent(this, listActivity::class.java)
             startActivity(intent)
         }
+        
+        
+         videoView.setVideoURI(Uri.parse("android.resource://" + packageName + "/" + R.raw.video))
+        val mediaController = MediaController(this)
+        videoView.setMediaController(mediaController)
+        videoView.start()
 

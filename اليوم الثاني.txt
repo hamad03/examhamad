@@ -121,3 +121,24 @@ button2.setOnClickListener {
 
         }
         return view
+                    val importance = NotificationManager.IMPORTANCE_HIGH
+                    val mChanel = NotificationChannel(CHANEL_ID, "dd", importance)
+                    val notification = Notification.Builder(context, CHANEL_ID)
+                        .setSmallIcon(R.drawable.ic_launcher_foreground)
+                        .setContentTitle("تنبيه")
+                        .setContentText("قيمة المقاومة التي أدخلتها تساوي 1")
+                        .build()
+
+                    val mNotificationManger =
+                        requireActivity().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                    mNotificationManger.createNotificationChannel(mChanel)
+                    mNotificationManger.notify(Id, notification)
+
+                    val intent = Intent(context, MainActivity::class.java)
+                    val pendingIntent = PendingIntent.getActivity(
+                        context,
+                        0,
+                        intent,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                    )
+                    notification.contentIntent = pendingIntent
